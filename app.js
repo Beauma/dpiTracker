@@ -13,9 +13,11 @@ var jsonParser = bodyParser.json()
 
 
 //Mid
+/*
 app.use('/away', () => {
     console.log('this is a mid');
 });
+*/
 
 //Routes
 app.get('/get-data', (req, res, next) => {
@@ -32,7 +34,7 @@ app.get('/get-data', (req, res, next) => {
             res.send(resultArray);
         });
     })
-}); 
+});
 
 app.get('/get-by-interviewee', jsonParser, (req, res, next) => {
     //console.log(req.body.interviewee);
@@ -100,7 +102,7 @@ app.get('/get-all-notnots', (req, res, next) => {
 app.post('/insert', jsonParser, (req, res, next) => {
     console.log(req.body);
     var item = {
-        "date": req.body.date, 
+        "date": req.body.date,
         "interviewee": req.body.interviewee,
         "type": req.body.type,
         "notnots": req.body.notnots
