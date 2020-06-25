@@ -1,12 +1,12 @@
 const express = require('express');
 
 const app = express();
-var url = 'mongodb://localhost:27017/test'
+var url = 'mongodb://localhost:27017/pt'
 var mongo = require('mongodb');
 const mongoClient = require('mongodb').MongoClient;
 const client = new mongoClient(url, {useUnifiedTopology: true});
 var assert = require('assert');
-const dbName = 'test';
+const dbName = 'pt';
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 var jsonParser = bodyParser.json()
@@ -19,7 +19,48 @@ app.use('/away', () => {
 });
 */
 
-//Routes
+//NEW ROUTES
+
+//
+app.get('/get-people', (req, res, next) => {
+    var resultArray = [];
+    mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        var cursor = db.collection('people').find();
+        cursor.forEach(function(doc, err) {
+            assert.equal(err, null);
+            resultArray.push(doc);
+        }, function() {
+            client.close()
+            res.send(resultArray);
+        });
+    })
+});
+
+
+app.post('/insert-person', jsonParser, (req, res, next) => {
+    console.log(req.body);
+    var item = {
+        "firstName": req.body.firstName,
+        "lastName": req.body.lastName,
+        "company": req.body.company,
+        "email": req.body.email
+    };
+    console.log('Item Created');
+    mongoClient.connect(url, (err, client) => {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        db.collection('people').insertOne(item, (err, result) => {
+            assert.equal(err, null);
+            client.close();
+        });
+    });
+    res.sendStatus(200);
+    console.log("response sent");
+});
+
+//OLD ROUTES
 app.get('/get-data', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
