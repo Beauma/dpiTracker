@@ -6,10 +6,10 @@ Get's all the people in the people database. Outputs in JSON format.
 
 ## /insert-person
 Inserts a person into the database in the "people" collection. Takes a post request with data in a JSON format. Takes fields:
-*"firstName"
-*"lastName"
-*"comapny"
-*"email"
+- "firstName"
+- "lastName"
+- "comapny"
+- "email"
 
 
 
