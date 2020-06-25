@@ -1,0 +1,25 @@
+{
+  "name": "dpitracker",
+  "version": "1.0.0",
+  "description": "A tracker for your DPIs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Beauma/dpiTracker.git"
+  },
+  "author": "Beau!",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Beauma/dpiTracker/issues"
+  },
+  "homepage": "https://github.com/Beauma/dpiTracker#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.5.9"
+  }
+}
