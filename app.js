@@ -21,7 +21,6 @@ app.use('/away', () => {
 
 //NEW ROUTES
 
-//
 app.get('/get-people', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
@@ -60,13 +59,68 @@ app.post('/insert-person', jsonParser, (req, res, next) => {
     console.log("response sent");
 });
 
+app.get('/get-person-fn', jsonParser, (req, res, next) => {
+    var resultArray = [];
+    mongoClient.connect(url, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        var cursor = db.collection('people')
+        .find({"firstName" : req.body.firstName});
+        cursor.forEach((doc, err) => {
+            assert.equal(err, null);
+            resultArray.push(doc);
+        }, function() {
+            client.close();
+            res.send(resultArray);
+        });
+    });
+});
+
+app.get('/get-person-ln', jsonParser, (req, res, next) => {
+    var resultArray = [];
+    mongoClient.connect(url, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        var cursor = db.collection('people')
+        .find({"lastName" : req.body.lastName});
+        cursor.forEach((doc, err) => {
+            assert.equal(err, null);
+            resultArray.push(doc);
+        }, function() {
+            client.close();
+            res.send(resultArray);
+        });
+    });
+});
+
+app.post('/insert-dpi', jsonParser, (req, res, next) => {
+    console.log(req.body);
+    var item = {
+        "date": req.body.date,
+        "interviewee": req.body.interviewee,
+        "type": req.body.type,
+        "notnots": req.body.notnots
+    };
+    console.log('Item Created');
+    mongoClient.connect(url, (err, client) => {
+        assert.equal(null, err);
+        const db = client.db(dbName);
+        db.collection('dpis').insertOne(item, (err, result) => {
+            assert.equal(err, null);
+            client.close();
+        });
+    });
+    res.sendStatus(200);
+    console.log("response sent");
+});
+
 //OLD ROUTES
 app.get('/get-data', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
         assert.equal(err, null);
         const db = client.db(dbName);
-        var cursor = db.collection('user-data').find();
+        var cursor = db.collection('dpis').find();
         cursor.forEach(function(doc, err) {
             assert.equal(err, null);
             resultArray.push(doc);
