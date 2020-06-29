@@ -21,6 +21,22 @@ app.use('/away', () => {
 
 //NEW ROUTES
 
+app.get('/get-person', (req, res, next) => {
+    var resultArray = [];
+    mongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        var cursor = db.collection('people').find(req.query);
+        cursor.forEach(function(doc, err) {
+            assert.equal(err, null);
+            resultArray.push(doc);
+        }, function() {
+            client.close()
+            res.send(resultArray);
+        })
+    })
+});
+
 app.get('/get-people', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {

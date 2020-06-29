@@ -4,6 +4,13 @@ The original, but the second version.
 ## /get-people
 Get's all the people in the people database. Outputs in JSON format.
 
+## /get-person
+Gets a person based on params passed in with the GET request. Possible params include:
+- "firstName"
+- "lastName"
+- "comapny"
+- "email"
+
 ## /insert-person
 Inserts a person into the database in the "people" collection. Takes a POST request with data in a JSON format. Takes fields:
 - "firstName"
@@ -12,10 +19,12 @@ Inserts a person into the database in the "people" collection. Takes a POST requ
 - "email"
 
 ## /get-person-fn
+*no longer needed*
 Gets person by their first name from the "people" collection. Takes a GET requires with data in JSON format. Takes fields:
 - "firstName"
 
 ## /get-person-ln
+*no longer needed*
 Gets person by their last name from the "people" collection. Takes a GET requires with data in JSON format. Takes fields:
 - "lastName"
 
