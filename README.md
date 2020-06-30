@@ -10,7 +10,8 @@ Gets a person based on params passed in with the GET request. Possible params in
 - "lastName"
 - "comapny"
 - "email"
-Example's include > http://18.222.143.61/get-person?email=BeauMartin@gatech.edu
+
+Example's include 'http://18.222.143.61/get-person?email=BeauMartin@gatech.edu'
 
 ## /insert-person
 Inserts a person into the database in the "people" collection. Takes a POST request with data in a JSON format. Takes fields:
