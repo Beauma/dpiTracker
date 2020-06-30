@@ -40,3 +40,7 @@ Inserts a dpi into the database in the "dpis" collection. Takes a POST request w
 # AWS Server Information
 
 The EC2 instance uses mongoDB, Express, and NodeJS. The github repository is stored in /var/www. PM2 and Nginx are used to manage resources.
+
+Our stack follows [this article](https://itnext.io/deploy-a-mongodb-expressjs-reactjs-nodejs-mern-stack-web-application-on-aws-ec2-2a0d8199a682) most closely. It also takes hints from [Keith Weaver's article](https://medium.com/@Keithweaver_/setting-up-mern-stack-on-aws-ec2-6dc599be4737) on setting up a deploy key.
+
+MongoDB was installed on the instance using [this StackOverflow](https://stackoverflow.com/questions/61547664/im-unable-to-install-mongodb-in-my-ubuntu-system-and-i-face-this-error-while-in) with help from the [MongoDB docs](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/)
