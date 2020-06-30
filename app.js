@@ -21,6 +21,19 @@ app.use('/away', () => {
 
 //NEW ROUTES
 
+app.delete('/remove-person', function(req, res) {
+    mongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        console.log(req.query);
+        var result = db.collection('people').deleteOne(req.query, (err, result) => {
+            assert.equal(err, null);
+            client.close();
+            res.send("Deleted: " + result)
+        })
+    })
+})
+
 app.get('/get-person', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
@@ -75,40 +88,6 @@ app.post('/insert-person', jsonParser, (req, res, next) => {
     console.log("response sent");
 });
 
-app.get('/get-person-fn', jsonParser, (req, res, next) => {
-    var resultArray = [];
-    mongoClient.connect(url, (err, client) => {
-        assert.equal(err, null);
-        const db = client.db(dbName);
-        var cursor = db.collection('people')
-        .find({"firstName" : req.body.firstName});
-        cursor.forEach((doc, err) => {
-            assert.equal(err, null);
-            resultArray.push(doc);
-        }, function() {
-            client.close();
-            res.send(resultArray);
-        });
-    });
-});
-
-app.get('/get-person-ln', jsonParser, (req, res, next) => {
-    var resultArray = [];
-    mongoClient.connect(url, (err, client) => {
-        assert.equal(err, null);
-        const db = client.db(dbName);
-        var cursor = db.collection('people')
-        .find({"lastName" : req.body.lastName});
-        cursor.forEach((doc, err) => {
-            assert.equal(err, null);
-            resultArray.push(doc);
-        }, function() {
-            client.close();
-            res.send(resultArray);
-        });
-    });
-});
-
 app.post('/insert-dpi', jsonParser, (req, res, next) => {
     console.log(req.body);
     var item = {
@@ -130,8 +109,7 @@ app.post('/insert-dpi', jsonParser, (req, res, next) => {
     console.log("response sent");
 });
 
-//OLD ROUTES
-app.get('/get-data', (req, res, next) => {
+app.get('/get-all-dpis', (req, res, next) => {
     var resultArray = [];
     mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
         assert.equal(err, null);
@@ -146,6 +124,23 @@ app.get('/get-data', (req, res, next) => {
         });
     })
 });
+
+app.get('/get-all-notnots', (req, res, next) => {
+    mongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+        assert.equal(err, null);
+        const db = client.db(dbName);
+        db.collection('dpis').distinct('notnots')
+        .then(function(nnList) {
+            client.close();
+            res.send(nnList);
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
+})
+
+//OLD ROUTES
 
 app.get('/get-by-interviewee', jsonParser, (req, res, next) => {
     //console.log(req.body.interviewee);
