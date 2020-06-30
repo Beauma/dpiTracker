@@ -10,6 +10,7 @@ Gets a person based on params passed in with the GET request. Possible params in
 - "lastName"
 - "comapny"
 - "email"
+Example's include > http://18.222.143.61/get-person?email=BeauMartin@gatech.edu
 
 ## /insert-person
 Inserts a person into the database in the "people" collection. Takes a POST request with data in a JSON format. Takes fields:
@@ -18,15 +19,12 @@ Inserts a person into the database in the "people" collection. Takes a POST requ
 - "comapny"
 - "email"
 
-## /get-person-fn
-*no longer needed*
-Gets person by their first name from the "people" collection. Takes a GET requires with data in JSON format. Takes fields:
+## /remove-person
+Removes a person from the database's "people" collection. Takes a DELETE request with params. Possible params include:
 - "firstName"
-
-## /get-person-ln
-*no longer needed*
-Gets person by their last name from the "people" collection. Takes a GET requires with data in JSON format. Takes fields:
 - "lastName"
+- "comapny"
+- "email"
 
 ## /insert-dpi
 **prototype**
@@ -36,6 +34,11 @@ Inserts a dpi into the database in the "dpis" collection. Takes a POST request w
 - "type" — Zoom?, irl?, etc
 - "notnots" — A JSON array of not nots. Considering making a collection for these.
 
+## /get-all-dpis
+Gets all the dpis with a GET request.
+
+## /get-all-notnots
+Gets all the unique notnots with a GET request.
 
 # AWS Server Information
 
