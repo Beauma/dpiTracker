@@ -11,6 +11,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: false}));
 var jsonParser = bodyParser.json()
 
+var AWS = require('aws-sdk');
+AWS.config.update({region: 'us-east-2'});
+
 
 //Mid
 /*
@@ -20,6 +23,31 @@ app.use('/away', () => {
 */
 
 //NEW ROUTES
+
+app.get('/audio', function(req, res) {
+    var s3 = new AWS.S3({apiVersion: '2006-03-01'});
+    var params = {Bucket: 'dpitrackeraudio', Key: '5efc1669fbf375461eef0a30.aac'};
+    var s3Stream = s3.getObject(params).createReadStream();
+
+    s3Stream.on('error', function(err){
+        console.log(err);
+        res.status(404).send('Not found');
+    });
+
+    s3Stream.on('httpHeaders', function(statusCode, headers, resp){
+        //set headers
+        res.set({
+            'Content-Type': headers['content-type']
+        });
+    });
+
+    s3Stream.pipe(res).on('error', function(err) {
+        console.log('File stream: ', err);
+    }).on('close', function() {
+        console.log("done!");
+    });
+
+});
 
 app.delete('/remove-person', function(req, res) {
     mongoClient.connect(url, {useUnifiedTopology: true}, (err, client) => {
@@ -267,9 +295,13 @@ app.delete('/remove-by-id', jsonParser, function(req, res) {
     })
 })
 
+app.use('/', express.static(__dirname));
+
+/*
 app.get('/', (req, res) => {
     res.send('We are at home');
 });
+*/
 
 app.get('/away', (req, res) => {
     res.send('We are at away');
