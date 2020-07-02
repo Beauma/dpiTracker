@@ -2,7 +2,7 @@
 The original, but the second version.
 
 ## /audio
-Get's audio from S3 bucket. Currently only get's Ben's DPI. Will fix that in the future.
+Get's audio from S3 bucket. Currently only get's Ben's DPI. Will fix that in the future. Using [this tutorial by AlexZywiak](https://alexzywiak.github.io/streaming-audio-goodness-from-amazon-s3-to-the-clients-ears/index.html) and documentation from [this amazon tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/requests-using-stream-objects.html).
 
 ## /get-people
 Get's all the people in the people database. Outputs in JSON format.
