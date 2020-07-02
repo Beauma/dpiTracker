@@ -1,6 +1,9 @@
 # dpiTracker
 The original, but the second version.
 
+## /audio
+Get's audio from S3 bucket. Currently only get's Ben's DPI. Will fix that in the future.
+
 ## /get-people
 Get's all the people in the people database. Outputs in JSON format.
 
