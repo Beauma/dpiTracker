@@ -1,9 +1,11 @@
 window.AudioContext = window.AudioContext ||     window.webkitAudioContext;
 var context = new AudioContext();
 
-function playTunes() {
+function playTunes(audio) {
       var request = new XMLHttpRequest();
-      request.open("GET", "http://localhost:3000/audio/", true);
+      var route = "http://localhost:3000/audio?audio="
+      route = route.concat(audio)
+      request.open("GET", route, true);
       request.responseType = "arraybuffer";
 
       request.onload = function() {

@@ -2,7 +2,11 @@
 The original, but the second version.
 
 ## /audio
-Get's audio from S3 bucket. Currently only get's Ben's DPI. Will fix that in the future. Using [this tutorial by AlexZywiak](https://alexzywiak.github.io/streaming-audio-goodness-from-amazon-s3-to-the-clients-ears/index.html) and documentation from [this amazon tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/requests-using-stream-objects.html).
+Get's audio from S3 bucket. Takes a GET request with one param, audio. Pipes the audio file response. I don't really know what that means.
+
+Examples include `http://localhost:3000/audio?audio=5efc1669fbf375461eef0a30.aac`
+
+Created using [this tutorial by AlexZywiak](https://alexzywiak.github.io/streaming-audio-goodness-from-amazon-s3-to-the-clients-ears/index.html) and documentation from [this amazon tutorial](https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/requests-using-stream-objects.html).
 
 ## /get-people
 Get's all the people in the people database. Outputs in JSON format.
@@ -14,7 +18,7 @@ Gets a person based on params passed in with the GET request. Possible params in
 - "comapny"
 - "email"
 
-Example's include `http://18.222.143.61/get-person?email=BeauMartin@gatech.edu`
+Examples include `http://18.222.143.61/get-person?email=BeauMartin@gatech.edu`
 
 ## /insert-person
 Inserts a person into the database in the "people" collection. Takes a POST request with data in a JSON format. Takes fields:

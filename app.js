@@ -26,7 +26,7 @@ app.use('/away', () => {
 
 app.get('/audio', function(req, res) {
     var s3 = new AWS.S3({apiVersion: '2006-03-01'});
-    var params = {Bucket: 'dpitrackeraudio', Key: '5efc1669fbf375461eef0a30.aac'};
+    var params = {Bucket: 'dpitrackeraudio', Key: req.query.audio};
     var s3Stream = s3.getObject(params).createReadStream();
 
     s3Stream.on('error', function(err){
